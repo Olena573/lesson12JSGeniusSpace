@@ -200,3 +200,138 @@ requestAnimationFrame викликає функцію приблизно 60 ра
 на секунду, тому він добре підходить для "ручного" таймера.
 
 */
+
+/*
+Завдання 1 (дуже просте): створити проміс, який успішно виконується
+Завдання:
+Створи проміс, який:
+ЧЕРЕЗ 2 секунди переходить у стан resolved
+Передає у .then() текст "Готово!"
+
+Тобто результат має працювати так:
+myPromise.then(result => {
+  console.log(result); // "Готово!"
+});
+*/
+
+// Моє рішення (неправильне, забагато коду і все ще
+// не розумію як це працює):
+
+/*
+const myPromise = new Promise((resolve, reject) => { 
+  setTimeout(() => {
+    if (success) {
+      resolve("Готово!");
+      } else {
+      reject("Виникла помилка!");
+    }
+  }, 2000) 
+
+});
+
+// 2. Обробка результатів
+myPromise
+  .then((result) => {
+    console.log("Готово!", result);
+  })
+  .catch((error) => {
+    console.error("Помилка:", error);
+  });
+
+  */
+ 
+// Correct answer, from ChatGPT:
+  
+  const myPromise1 = new Promise((resolve) => { 
+  setTimeout(() => {
+    resolve("Готово!");
+  }, 2000)
+});
+
+myPromise1.then(result => {
+  console.log(result);
+});
+
+// Another correct answer from it:
+
+let success = true; // або false
+
+
+const myPromise = new Promise((resolve, reject) => { 
+  setTimeout(() => {
+    if (success) {
+      resolve("Готово!");
+    } else {
+      reject("Виникла помилка!");
+    }
+  }, 2000);
+});
+
+// 2. Обробка результатів
+myPromise
+  .then((result) => {
+    console.log("Готово!", result);
+  })
+  .catch((error) => {
+    console.error("Помилка:", error);
+  });
+
+  /*
+Завдання 2 — Створити delay-функцію на промісах
+Завдання:
+
+Створи функцію:
+
+function delay(ms) {
+  // твій код
+}
+
+
+яка повертає проміс, що переходить у resolved після ms мілісекунд.
+
+Вона має працювати так:
+delay(3000).then(() => {
+  console.log("Пройшло 3 секунди!");
+});
+
+  */
+
+//How I solved it (and did almost everything ok,
+//but made 1 mistake):
+
+function delay(ms) {
+  const myPromise1 = new Promise((resolve) => { 
+  setTimeout(() => {
+    resolve("Готово!");
+  }, ms)
+});
+
+}
+
+delay(3000).then(() => {
+  console.log("Пройшло 3 секунди!");
+});
+
+//How it Should be done (Made by ChatGPT):
+
+function delay(ms) {
+  return new Promise((resolve) => { 
+    setTimeout(() => {
+      resolve();
+    }, ms);
+  });
+}
+
+delay(3000).then(() => {
+  console.log("Пройшло 3 секунди!");
+});
+
+// Подивитись знову ту частину відео
+// де говориться про проміси щоб зрозуміти суть.
+
+/*
+Що не встигли пройти:
+асинхронні функції
+TCP/IP HTTP HTTPS Коди відповіді помилки і обробка
+
+*/
